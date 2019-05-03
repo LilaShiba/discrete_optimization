@@ -35,7 +35,7 @@ def knapsack(maxWeight,items):
       if matrix[row][col] != matrix[row-1][col]:
         packed.insert(0,row)
         col -= items[0][row]
-  return matrix[len(items[0])-1][maxWeight]
+  return packed#matrix[len(items[0])-1][maxWeight]
 
 
 
@@ -89,5 +89,5 @@ itemWeight = [3,1,2,4]
 itemValues = [7,2,4,5]
 items = [itemWeight,itemValues]
 
-pprint.pprint(dp_knapsack(6,items))
-print(knapSack(W,wt,val,n))
+#pprint.pprint(dp_knapsack(6,items))
+print(knapsack(W,items))

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+import pprint
 from collections import namedtuple
 Item = namedtuple("Item", ['index', 'value', 'weight'])
 
@@ -27,15 +27,30 @@ def solve_it(input_data):
     weight = 0
     taken = [0]*len(items)
     ############### start solution here #######################################
-        table = [[0 for col in range(capacity+1)] for row in range(item_count)]
-        for row in range(item_count):
-            for col in range(capacity+1):
-                if items[row].weight > col:
-                    table[row][col] = table[row-1][col]
-                    #print(items[row].weight)
-                else:
-                    table[row][col] = max(table[row-1][col], table[row-1][col-items[row].weight] + items[row].value)
-        value = table[-1][-1]
+    # DP Solution slow is K is large
+
+    table = [[0 for col in range(capacity+1)] for row in range(item_count)]
+    for row in range(item_count):
+        for col in range(capacity+1):
+            if items[row].weight > col:
+                table[row][col] = table[row-1][col]
+                #print(items[row].weight)
+            else:
+                table[row][col] = max(table[row-1][col], table[row-1][col-items[row].weight] + items[row].value)
+    value = table[-1][-1]
+    # amount = value
+    #
+    # # backwards loop
+    # # start,stop,step
+    col = capacity
+    for row in range(item_count-1,-1,-1):
+        if row == 0 and table[row][col] != 0:
+            taken[items[row].index] = 1
+        if table[row][col] != table[row-1][col]:
+            taken[items[row].index] = 1
+            col -= items[row].weight
+
+
 
     ############### end solution here #######################################
     # greedy algorithm
@@ -46,7 +61,7 @@ def solve_it(input_data):
     #         weight += item.weight
 
     # prepare the solution in the specified output format
-    output_data = str(value) + ' ' + str(0) + '\n'
+    output_data = str(value) + ' ' + str(1) + '\n'
     output_data += ' '.join(map(str, taken))
     return output_data
 
