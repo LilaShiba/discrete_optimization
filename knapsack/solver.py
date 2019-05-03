@@ -26,13 +26,25 @@ def solve_it(input_data):
     value = 0
     weight = 0
     taken = [0]*len(items)
+    ############### start solution here #######################################
+        table = [[0 for col in range(capacity+1)] for row in range(item_count)]
+        for row in range(item_count):
+            for col in range(capacity+1):
+                if items[row].weight > col:
+                    table[row][col] = table[row-1][col]
+                    #print(items[row].weight)
+                else:
+                    table[row][col] = max(table[row-1][col], table[row-1][col-items[row].weight] + items[row].value)
+        value = table[-1][-1]
 
-    for item in items:
-        if weight + item.weight <= capacity:
-            taken[item.index] = 1
-            value += item.value
-            weight += item.weight
-    
+    ############### end solution here #######################################
+    # greedy algorithm
+    # for item in items:
+    #     if weight + item.weight <= capacity:
+    #         taken[item.index] = 1
+    #         value += item.value
+    #         weight += item.weight
+
     # prepare the solution in the specified output format
     output_data = str(value) + ' ' + str(0) + '\n'
     output_data += ' '.join(map(str, taken))
@@ -48,4 +60,3 @@ if __name__ == '__main__':
         print(solve_it(input_data))
     else:
         print('This test requires an input file.  Please select one from the data directory. (i.e. python solver.py ./data/ks_4_0)')
-
