@@ -1,7 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-
 def solve_it(input_data):
     # Modify this code to run your optimization algorithm
 
@@ -17,12 +15,31 @@ def solve_it(input_data):
         line = lines[i]
         parts = line.split()
         edges.append((int(parts[0]), int(parts[1])))
-    print(edges)
 
     # build a trivial solution
     # every node has its own color
     solution = range(0, node_count)
 
+
+    def easy_solve():
+        graph = {}
+        # make adj_list
+        for x in range(edge_count):
+            if edges[x][0] not in graph:
+                graph[edges[x][0]] = [edges[x][1]]
+            else:
+                graph[edges[x][0]].append(edges[x][1])
+        print(graph)
+
+        available = [True] * edge_count
+        color_value = {}
+        
+        print(color_value)
+        # for node in graph:
+        #     neighbor_color =
+
+
+    easy_solve()
     # prepare the solution in the specified output format
     output_data = str(node_count) + ' ' + str(0) + '\n'
     output_data += ' '.join(map(str, solution))
