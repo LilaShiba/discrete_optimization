@@ -24,17 +24,20 @@ def solve_it(input_data):
     def easy_solve():
         graph = {}
         # make adj_list
+        # these are the constraints
         for x in range(edge_count):
             if edges[x][0] not in graph:
                 graph[edges[x][0]] = [edges[x][1]]
             else:
                 graph[edges[x][0]].append(edges[x][1])
-        print(graph)
+        #print(graph)
 
-        available = [True] * edge_count
+        # sort by valency of value
+        keys_valency = sorted(graph, key=lambda k: len(graph[k]), reverse = True)
+        print(keys_valency)
+
+        available = [0] * edge_count
         color_value = {}
-        
-        print(color_value)
         # for node in graph:
         #     neighbor_color =
 
