@@ -14,6 +14,7 @@ class Battleship():
         else:
             print('there are rocks there')
             self.placeShip(enemy)
+        print(self.location)
 
     def battle(self,enemy):
             where = input('where do you want to hit?')

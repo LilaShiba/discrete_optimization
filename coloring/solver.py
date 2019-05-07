@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import pprint
 def solve_it(input_data):
     # Modify this code to run your optimization algorithm
 
@@ -16,33 +17,38 @@ def solve_it(input_data):
         parts = line.split()
         edges.append((int(parts[0]), int(parts[1])))
 
+    print(edges)
+
     # build a trivial solution
     # every node has its own color
     solution = range(0, node_count)
+############### Greedy Start #############################
 
 
+############### Greedy end ###############################
+
+
+
+############### Backtracking Start #############################
+    def isSafe(node,color, c):
+        for i in range(node_count):
+            if matrix[node][i] == 1 and color[i] == c:
+                return False
     def easy_solve():
-        graph = {}
-        # make adj_list
-        # these are the constraints
-        for x in range(edge_count):
-            if edges[x][0] not in graph:
-                graph[edges[x][0]] = [edges[x][1]]
-            else:
-                graph[edges[x][0]].append(edges[x][1])
-        #print(graph)
+        # create adj matrix
+        matrix = [[0 for x in range(node_count)] for y in range(node_count)]
+        for x,y in edges:
+            matrix[x][y] = 1
+        pprint.pprint(matrix)
 
-        # sort by valency of value
-        keys_valency = sorted(graph, key=lambda k: len(graph[k]), reverse = True)
-        print(keys_valency)
+        colors = [0] * node_count
+        
 
-        available = [0] * edge_count
-        color_value = {}
-        # for node in graph:
-        #     neighbor_color =
 
 
     easy_solve()
+############### Backtracking End ##############################
+
     # prepare the solution in the specified output format
     output_data = str(node_count) + ' ' + str(0) + '\n'
     output_data += ' '.join(map(str, solution))
