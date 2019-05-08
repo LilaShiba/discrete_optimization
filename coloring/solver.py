@@ -70,15 +70,13 @@ def solve_it(input_data):
 
     matrix = [[0 for x in range(node_count)] for y in range(node_count)]
     for x,y in edges:
-        print(x,y)
         matrix[x][y] = 1
         matrix[y][x] = 1
 
-    col_val = [0] * node_count
+    col_val = [None] * node_count
 
 ############### Backtracking Start #############################
     # n = nodes
-    m = 2
     def printSolution(board):
         pprint.pprint(board)
 
@@ -107,7 +105,7 @@ def solve_it(input_data):
     ans = color(0,col_val)
     #printSolution(col_val)
     #print(ans)
-    nc = max(col_val)
+    nc = max(col_val) + 1
     solution = col_val
 
 ############### Backtracking End ##############################
