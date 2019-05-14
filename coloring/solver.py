@@ -68,45 +68,55 @@ def solve_it(input_data):
 
 ############### Greedy end ###############################
 
-    matrix = [[0 for x in range(node_count)] for y in range(node_count)]
+    matrix = [[0 for x in range(0,node_count)] for y in range(0,node_count)]
     for x,y in edges:
         matrix[x][y] = 1
         matrix[y][x] = 1
 
-    col_val = [None] * node_count
-
 ############### Backtracking Start #############################
-    # n = nodes
     def printSolution(board):
         pprint.pprint(board)
 
-    def isSafe(node,c):
+    def isSafe(node,c, col_val):
         # iterate through all nodes in graph
         for i in range(0,node_count):
             # if adj node has same color, return false
-            if matrix[node][i] == 1 and c == col_val[i]:
-                return False
+            if i!= node:
+                if matrix[node][i] == 1 and c == col_val[i]:
+                    return False
         return True
 
-    def color(node,col_val):
+    def colorUtl(node, magic, col_val):
         if node == node_count:
             return True
 
-        for i in range(0,node_count-1):
-            if isSafe(node,i):
-                col_val[node] = i
-                if color(node+1,col_val) == True:
+        for c in range(1,magic):
+            if isSafe(node, c, col_val):
+                col_val[node] = c
+                if colorUtl(node+1, magic, col_val) == True:
                     return True
-        return False
+                col_val[node] = 0
+
+    def color(magic):
+        col_val = [0] * node_count
+        if colorUtl(0,magic,col_val) == False:
+            print(False)
+            return False
+
+        return col_val
 
 
 
 
-    ans = color(0,col_val)
+    colors = color(node_count)
+
+
     #printSolution(col_val)
-    #print(ans)
-    nc = max(col_val) + 1
-    solution = col_val
+
+    nc = max(colors)
+    print(nc)
+    solution = colors
+
 
 ############### Backtracking End ##############################
 
