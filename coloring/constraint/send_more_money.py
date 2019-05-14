@@ -1,6 +1,6 @@
 #https://stackabuse.com/constraint-programming-with-python-constraint/
 import constraint
-# two + two = four
+# send + more = money
 problem = constraint.Problem()
 
 problem.addVariables("SM", range(1, 10))
