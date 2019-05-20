@@ -8,7 +8,7 @@ problem.addVariables("ENDORY", range(10))
 
 # Telling Python that we need SEND + MORE = MONEY
 def sum_constraint(s, e, n, d, m, o, r, y):
-    if 2*(s*1000 + e*100 + n*10 + d) + 2*(m*1000 + o*100 + r*10 + e)== m*10000 + o*1000 + n*100 + e*10 + y:
+    if (s*1000 + e*100 + n*10 + d) + (m*1000 + o*100 + r*10 + e)== m*10000 + o*1000 + n*100 + e*10 + y:
         return True
 
 # Adding our custom constraint. The

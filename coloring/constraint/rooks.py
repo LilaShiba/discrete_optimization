@@ -3,7 +3,6 @@ problem = constraint.Problem()
 numpieces = 8
 cols = range(numpieces)
 rows = range(numpieces)
-
 problem.addVariables(cols,rows)
 
 for col1 in cols:
