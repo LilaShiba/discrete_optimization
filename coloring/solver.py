@@ -83,8 +83,8 @@ def solve_it(input_data):
 
 
 ############### Backtracking End ##############################
-    colors = [0] * node_count
-
+    # colors = [x+1 for x in range(node_count)]
+    #
     def make_adj_list():
         adj_list = {}
         for x in range(0,node_count):
@@ -93,34 +93,51 @@ def solve_it(input_data):
             adj_list[x].append(y)
         return adj_list
 
-    adj_list = make_adj_list()
-    color_of_edges = {}
-    colors = [x+1 for x in range(0,node_count)]
 
-    ### work on
-    def isSafe(node,color):
-        for edge in adj_list[node]:
-            edge_color = color_of_edges.get(edge)
-            if edge_color == color:
-                return False
+
+
+    matrix = [[0 for x in range(0,node_count)] for y in range(0,node_count)]
+    for x,y in edges:
+        matrix[x][y] = 1
+        matrix[y][x] = 1
+
+
+
+    # ### work on
+    def isSafe(node,color,color_of_edges):
+
+        for i in range(0,node_count):
+            # if adj node has same color, return false
+            if i != node:
+                if matrix[node][i] == 1 and color == color_of_edges[i]:
+                    return False
         return True
-
-    def get_edge_color(node):
-        for color in colors:
-            if isSafe(node,color):
+    #
+    def get_edge_color(node,color_of_edges):
+        # make max list here
+        for color in range(0,node_count-1):
+            if isSafe(node,color,color_of_edges):
                 return color
+    #
+    def main(color_of_edges):
+        for node in sorted_adj_list:
+            color_of_edges[node] = get_edge_color(node,color_of_edges)
+        return color_of_edges
+    #
+    adj_list = make_adj_list()
+    sorted_adj_list = sorted(adj_list, key=lambda edge: len(adj_list[edge]), reverse = True)
+    ce = {}
+    for x in range(0,node_count):
+        ce[x] = x
+    ans = main(ce)
+    solution = []
+    for key, value in ans.items():
+        solution.append(value)
 
-    def main():
-        for node in range(0,node_count):
-            color_of_edges[node] = get_edge_color(node)
-        print(color_of_edges)
-
-    ans = main()
 
 ############### Local Search Start ############################
     # return values
-    nc = 0
-    solution = [0] * node_count
+    nc = max(solution)+1
 
 
 
